@@ -1,8 +1,6 @@
 import { signUpSchema, signInSchema } from "../schema/loginSchema.js";
 import db from "../db.js";
-import { findSourceMap } from "module";
 import bcrypt from "bcrypt"
-import {v4 as uuid} from "uuid";
 
 
 export async function validationSignUp ( req,res, next) {
