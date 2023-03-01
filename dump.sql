@@ -28,9 +28,9 @@ CREATE TABLE public.link (
     id integer NOT NULL,
     "userId" integer NOT NULL,
     "createdAt" timestamp without time zone DEFAULT now(),
-    "visitsCount" integer DEFAULT 0 NOT NULL,
     url text NOT NULL,
-    "shortUrl" text NOT NULL
+    "shortUrl" text NOT NULL,
+    "visitCount" integer DEFAULT 0
 );
 
 
@@ -52,16 +52,6 @@ CREATE SEQUENCE public.link_id_seq
 --
 
 ALTER SEQUENCE public.link_id_seq OWNED BY public.link.id;
-
-
---
--- Name: ranking; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.ranking (
-    "userId" integer NOT NULL,
-    "visitsCount" integer DEFAULT 0 NOT NULL
-);
 
 
 --
@@ -155,13 +145,11 @@ ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_
 -- Data for Name: link; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-INSERT INTO public.link VALUES (1, 9, '2023-03-01 20:13:10.137163', 0, 'www.driven.com.br', 'w-id5qpO');
-
-
---
--- Data for Name: ranking; Type: TABLE DATA; Schema: public; Owner: -
---
-
+INSERT INTO public.link VALUES (1, 9, '2023-03-01 20:13:10.137163', 'www.driven.com.br', 'w-id5qpO', NULL);
+INSERT INTO public.link VALUES (4, 9, '2023-03-02 08:39:10.703375', 'www.driven.com.dbr', 'ZDMbHBOn', NULL);
+INSERT INTO public.link VALUES (5, 9, '2023-03-02 08:40:45.306342', 'www.driven.com.dbr', 'FRmMDG0_', NULL);
+INSERT INTO public.link VALUES (6, 9, '2023-03-02 08:41:53.049846', 'www.driven.com.dbr', '5v4jNSMb', 0);
+INSERT INTO public.link VALUES (7, 9, '2023-03-02 08:41:58.178488', 'www.driven.com.dbr', '5BB7Ddkc', 0);
 
 
 --
@@ -193,7 +181,7 @@ INSERT INTO public.users VALUES (9, 'João', 'joao@driven.com.br', '$2b$10$j16nj
 -- Name: link_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.link_id_seq', 3, true);
+SELECT pg_catalog.setval('public.link_id_seq', 7, true);
 
 
 --
@@ -216,22 +204,6 @@ SELECT pg_catalog.setval('public.users_id_seq', 9, true);
 
 ALTER TABLE ONLY public.link
     ADD CONSTRAINT link_pkey PRIMARY KEY (id);
-
-
---
--- Name: link link_visitsCount_key; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.link
-    ADD CONSTRAINT "link_visitsCount_key" UNIQUE ("visitsCount");
-
-
---
--- Name: ranking ranking_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.ranking
-    ADD CONSTRAINT ranking_pkey PRIMARY KEY ("userId");
 
 
 --
@@ -272,22 +244,6 @@ ALTER TABLE ONLY public.users
 
 ALTER TABLE ONLY public.link
     ADD CONSTRAINT "link_userId_fkey" FOREIGN KEY ("userId") REFERENCES public.users(id) ON DELETE CASCADE;
-
-
---
--- Name: ranking ranking_userId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.ranking
-    ADD CONSTRAINT "ranking_userId_fkey" FOREIGN KEY ("userId") REFERENCES public.users(id) ON DELETE CASCADE;
-
-
---
--- Name: ranking ranking_visitsCount_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.ranking
-    ADD CONSTRAINT "ranking_visitsCount_fkey" FOREIGN KEY ("visitsCount") REFERENCES public.link("visitsCount") ON DELETE CASCADE;
 
 
 --
