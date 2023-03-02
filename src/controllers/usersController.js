@@ -8,6 +8,11 @@ export async function signup(req,res) {
     const criptPassword = bcrypt.hashSync(password,10)
 
     try {
+        const checkExist = await db.query(`
+        SELECT email FROM users where email = $1`,[email])
+        if (checkExist.rowCount>0){
+            return res.sendStatus(409)
+        }
         await db.query(`INSERT INTO users (
             "name",
             "email",
@@ -16,6 +21,9 @@ export async function signup(req,res) {
             values($1,$2,$3)
             `,[name,email,criptPassword])
         res.sendStatus(201)
+        
+
+
     } catch (error) {
         console.log(error)
         res.status(500).send(error.message);

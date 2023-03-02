@@ -96,7 +96,8 @@ CREATE TABLE public.users (
     name text NOT NULL,
     email text NOT NULL,
     password character varying(255) NOT NULL,
-    "numberLinks" integer DEFAULT 0 NOT NULL
+    "numberLinks" integer DEFAULT 0 NOT NULL,
+    "createdAt" date DEFAULT CURRENT_TIMESTAMP
 );
 
 
@@ -150,6 +151,7 @@ INSERT INTO public.link VALUES (4, 9, '2023-03-02 08:39:10.703375', 'www.driven.
 INSERT INTO public.link VALUES (5, 9, '2023-03-02 08:40:45.306342', 'www.driven.com.dbr', 'FRmMDG0_', NULL);
 INSERT INTO public.link VALUES (6, 9, '2023-03-02 08:41:53.049846', 'www.driven.com.dbr', '5v4jNSMb', 0);
 INSERT INTO public.link VALUES (7, 9, '2023-03-02 08:41:58.178488', 'www.driven.com.dbr', '5BB7Ddkc', 0);
+INSERT INTO public.link VALUES (8, 9, '2023-03-02 14:01:11.72009', 'https://www.npmjs.com/package/nanoid?activeTab=readmer', 'hBHadfdc', 0);
 
 
 --
@@ -168,20 +170,20 @@ INSERT INTO public.sessions VALUES (6, 9, 'ee0b8998-6780-43fd-b027-d6f86b3af1c1'
 -- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-INSERT INTO public.users VALUES (1, 'leonardo', 'leo@got.com', 'doritos', 0);
-INSERT INTO public.users VALUES (2, 'leonarsdo', 'leo@gdot.com', 'doraitos', 0);
-INSERT INTO public.users VALUES (3, 'leo', 'leo@bog.com', 'abdabd', 0);
-INSERT INTO public.users VALUES (5, 'leo', 'leoa@bog.com', 'abdabd', 0);
-INSERT INTO public.users VALUES (7, 'leo', 'leoa@boga.com', 'abdabd', 0);
-INSERT INTO public.users VALUES (8, 'leo', 'leoad@boga.com', '$2b$10$puhTfs3I/kdjEN2n1zl6PuhHkZ9SBQm5Y/7PRkINcoSdSaiD9bahi', 0);
-INSERT INTO public.users VALUES (9, 'João', 'joao@driven.com.br', '$2b$10$j16njP8/pXj5GHfK.4YPTOmnBDhhvHLT1FiNJDWwSrlPPGMVd1NFi', 0);
+INSERT INTO public.users VALUES (1, 'leonardo', 'leo@got.com', 'doritos', 0, '2023-03-02');
+INSERT INTO public.users VALUES (2, 'leonarsdo', 'leo@gdot.com', 'doraitos', 0, '2023-03-02');
+INSERT INTO public.users VALUES (3, 'leo', 'leo@bog.com', 'abdabd', 0, '2023-03-02');
+INSERT INTO public.users VALUES (5, 'leo', 'leoa@bog.com', 'abdabd', 0, '2023-03-02');
+INSERT INTO public.users VALUES (7, 'leo', 'leoa@boga.com', 'abdabd', 0, '2023-03-02');
+INSERT INTO public.users VALUES (8, 'leo', 'leoad@boga.com', '$2b$10$puhTfs3I/kdjEN2n1zl6PuhHkZ9SBQm5Y/7PRkINcoSdSaiD9bahi', 0, '2023-03-02');
+INSERT INTO public.users VALUES (9, 'João', 'joao@driven.com.br', '$2b$10$j16njP8/pXj5GHfK.4YPTOmnBDhhvHLT1FiNJDWwSrlPPGMVd1NFi', 0, '2023-03-02');
 
 
 --
 -- Name: link_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.link_id_seq', 7, true);
+SELECT pg_catalog.setval('public.link_id_seq', 8, true);
 
 
 --

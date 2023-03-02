@@ -1,5 +1,6 @@
 import db from "../db.js";
 import { nanoid } from "nanoid";
+import { useParams } from "react-router-dom";
 
 export async function urlReduction(req,res){
     const {url} = req.body
@@ -25,5 +26,19 @@ export async function urlReduction(req,res){
 } catch (error) {
     res.send(error)
 }
+}
+
+
+export async function urlById(req,res){
+    const id = req.params.id
+
+    try {
+        const returnUrls = await db.query(`
+        SELECT id, "shortUrl", url FROM link where id=$1`,[id])
+        return res.status(200).send(returnUrls.rows[0])
+
+    } catch (error) {
+        
+    }
 }
 
