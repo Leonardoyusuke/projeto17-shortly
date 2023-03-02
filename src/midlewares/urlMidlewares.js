@@ -38,3 +38,19 @@ export async function checkUserDelet(req,res,next){
     res.status(500).send(error.message);
   }
 }
+
+export async function ranking(req,res,next){
+
+    try {
+      const rank = await db.query(`
+      SELECT users.id, users.name , users."linksCount",link."visitCount"
+      from users
+      join link ON users.id = link."userId"
+      order by "visitCount" DESC
+      LIMIT 10`)
+      res.status(200).send(rank.rows)
+    } catch (error) {
+      
+    }
+    
+}

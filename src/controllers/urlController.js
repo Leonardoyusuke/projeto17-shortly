@@ -14,6 +14,11 @@ export async function urlReduction(req,res){
     ("url","shortUrl","userId")
     VALUES($1,$2,$3)`,[url,shortUrl,userId])
     console.log(insertDb,"insertDB")
+
+    await db.query(`
+    UPDATE users 
+    SET "linkCount" = "linkCount" + 1
+    WHERE id = $1`,[userId])
     
     const getUrlId = await db.query(`
     SELECT id FROM link WHERE "shortUrl" = $1 `,[shortUrl])
@@ -68,11 +73,21 @@ export async function redirect(req,res){
 
 export async function deletUrl(req,res){
     const urlId = req.params.id
+    const getUserId = res.locals.getUserId
+    const userId = getUserId.rows[0].userId
 
     try {
         await db.query(`
         DELETE FROM link WHERE id=$1`,[urlId])
+
+        await db.query(`
+        UPDATE users 
+        SET "linkCount" = "linkCount" - 1
+        WHERE id = $1`,[userId])
+
         return res.sendStatus(204)
+        
+
     } catch (error) {
         res.status(500).send(error.message);
 
@@ -95,10 +110,6 @@ export async function getIdByToken(req,res,next){
         const shortenedUrls = await db.query(`
         SELECT id,"shortUrl",url,"visitCount" 
         FROM link WHERE "userId" = $1`,[userId])
-
-
-
-
 
 
 

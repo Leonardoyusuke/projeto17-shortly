@@ -96,7 +96,7 @@ CREATE TABLE public.users (
     name text NOT NULL,
     email text NOT NULL,
     password character varying(255) NOT NULL,
-    "numberLinks" integer DEFAULT 0 NOT NULL,
+    "linksCount" integer DEFAULT 0 NOT NULL,
     "createdAt" date DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -147,8 +147,7 @@ ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_
 --
 
 INSERT INTO public.link VALUES (7, 9, '2023-03-02 08:41:58.178488', 'www.driven.com.dbr', '5BB7Ddkc', 0);
-INSERT INTO public.link VALUES (6, 9, '2023-03-02 08:41:53.049846', 'www.driven.com.dbr', '5v4jNSMb', 13);
-INSERT INTO public.link VALUES (8, 9, '2023-03-02 14:01:11.72009', 'https://www.npmjs.com/package/nanoid?activeTab=readmer', 'hBHadfdc', 3);
+INSERT INTO public.link VALUES (8, 9, '2023-03-02 14:01:11.72009', 'https://www.npmjs.com/package/nanoid?activeTab=readmer', 'hBHadfdc', 4);
 
 
 --
