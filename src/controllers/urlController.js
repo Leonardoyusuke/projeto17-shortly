@@ -78,3 +78,32 @@ export async function deletUrl(req,res){
 
     }
 }
+
+export async function getIdByToken(req,res,next){
+    const userId = res.locals.getUserId.rows[0].userId
+  
+    try {
+        const userName = await db.query(`
+        SELECT name FROM users WHERE id = $1`,[userId])
+        console.log(userName.rows[0].name)
+
+
+        const totalvisit = await db.query(`
+        SELECT SUM("visitCount") FROM link WHERE "userId" = $1 ;`,[userId])
+        console.log(totalvisit.rows[0].sum)
+    
+        const shortenedUrls = await db.query(`
+        SELECT id,"shortUrl",url,"visitCount" 
+        FROM link WHERE "userId" = $1`,[userId])
+
+
+
+
+
+
+
+    return res.status(200).send({"id":userId,"name":userName.rows[0].name,"visitCount":totalvisit.rows[0].sum,"shortenedUrls":shortenedUrls.rows})
+    } catch (error) {
+      
+    }
+  }
