@@ -30,7 +30,7 @@ CREATE TABLE public.link (
     "createdAt" timestamp without time zone DEFAULT now(),
     url text NOT NULL,
     "shortUrl" text NOT NULL,
-    "visitCount" integer DEFAULT 0
+    "visitCount" numeric DEFAULT 0
 );
 
 
@@ -146,12 +146,9 @@ ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_
 -- Data for Name: link; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-INSERT INTO public.link VALUES (1, 9, '2023-03-01 20:13:10.137163', 'www.driven.com.br', 'w-id5qpO', NULL);
-INSERT INTO public.link VALUES (4, 9, '2023-03-02 08:39:10.703375', 'www.driven.com.dbr', 'ZDMbHBOn', NULL);
-INSERT INTO public.link VALUES (5, 9, '2023-03-02 08:40:45.306342', 'www.driven.com.dbr', 'FRmMDG0_', NULL);
-INSERT INTO public.link VALUES (6, 9, '2023-03-02 08:41:53.049846', 'www.driven.com.dbr', '5v4jNSMb', 0);
 INSERT INTO public.link VALUES (7, 9, '2023-03-02 08:41:58.178488', 'www.driven.com.dbr', '5BB7Ddkc', 0);
-INSERT INTO public.link VALUES (8, 9, '2023-03-02 14:01:11.72009', 'https://www.npmjs.com/package/nanoid?activeTab=readmer', 'hBHadfdc', 0);
+INSERT INTO public.link VALUES (6, 9, '2023-03-02 08:41:53.049846', 'www.driven.com.dbr', '5v4jNSMb', 13);
+INSERT INTO public.link VALUES (8, 9, '2023-03-02 14:01:11.72009', 'https://www.npmjs.com/package/nanoid?activeTab=readmer', 'hBHadfdc', 3);
 
 
 --

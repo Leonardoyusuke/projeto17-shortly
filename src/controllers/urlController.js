@@ -24,7 +24,7 @@ export async function urlReduction(req,res){
     return res.status(201).send({"id":urlId,"shortUrl":shortUrl})
 
 } catch (error) {
-    res.send(error)
+    res.status(500).send(error.message);
 }
 }
 
@@ -38,7 +38,30 @@ export async function urlById(req,res){
         return res.status(200).send(returnUrls.rows[0])
 
     } catch (error) {
-        
+        res.status(500).send(error.message);
+
     }
 }
 
+export async function redirect(req,res){
+    const shortUrl = req.params.shortUrl
+
+    try {
+        const redirect = await db.query(`
+        SELECT url FROM link where "shortUrl" = $1`,[shortUrl])
+        const link = redirect.rows[0].url
+        if(redirect.rowCount==0){
+            return res.sendStatus(404)
+        }
+
+        await db.query(`UPDATE link 
+        SET "visitCount" = "visitCount" + 1
+        WHERE "shortUrl" = $1`,[shortUrl])
+
+
+        return res.redirect(link)
+
+    } catch (error) {
+        res.status(500).send(error.message);
+    }
+}
