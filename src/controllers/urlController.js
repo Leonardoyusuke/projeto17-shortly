@@ -65,3 +65,16 @@ export async function redirect(req,res){
         res.status(500).send(error.message);
     }
 }
+
+export async function deletUrl(req,res){
+    const urlId = req.params.id
+
+    try {
+        await db.query(`
+        DELETE FROM link WHERE id=$1`,[urlId])
+        return res.sendStatus(204)
+    } catch (error) {
+        res.status(500).send(error.message);
+
+    }
+}
