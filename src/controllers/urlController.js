@@ -16,7 +16,7 @@ export async function urlReduction(req,res){
 
     await db.query(`
     UPDATE users 
-    SET "linkCount" = "linkCount" + 1
+    SET "linksCount" = "linksCount" + 1
     WHERE id = $1`,[userId])
     
     const getUrlId = await db.query(`
