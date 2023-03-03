@@ -35,10 +35,15 @@ export async function urlReduction(req,res){
 
 export async function urlById(req,res){
     const id = req.params.id
-
+    console.log(id)
     try {
         const returnUrls = await db.query(`
         SELECT id, "shortUrl", url FROM link where id=$1`,[id])
+        if(returnUrls.rowCount==0){
+            return res.sendStatus(404)
+        }
+
+        console.log(returnUrls)
         return res.status(200).send(returnUrls.rows[0])
 
     } catch (error) {
@@ -53,10 +58,13 @@ export async function redirect(req,res){
     try {
         const redirect = await db.query(`
         SELECT url FROM link where "shortUrl" = $1`,[shortUrl])
-        const link = redirect.rows[0].url
+        console.log(redirect)
         if(redirect.rowCount==0){
             return res.sendStatus(404)
         }
+        const link = redirect.rows[0].url
+        console.log(link)
+        
 
         await db.query(`UPDATE link 
         SET "visitCount" = "visitCount" + 1
@@ -81,7 +89,7 @@ export async function deletUrl(req,res){
 
         await db.query(`
         UPDATE users 
-        SET "linkCount" = "linkCount" - 1
+        SET "linksCount" = "linksCount" - 1
         WHERE id = $1`,[userId])
 
         return res.sendStatus(204)
