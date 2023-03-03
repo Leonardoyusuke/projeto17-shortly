@@ -1,6 +1,5 @@
 import db from "../db.js";
 import { nanoid } from "nanoid";
-import { useParams } from "react-router-dom";
 
 export async function urlReduction(req,res){
     const {url} = req.body
